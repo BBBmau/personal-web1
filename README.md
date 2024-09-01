@@ -1,4 +1,4 @@
-This repo serves as the code that for my simple static website. Hosted on github pages ofcourse.
+This repo serves as the code for my simple static website. Hosted on github pages of course.
 
 # **THIS IS NO WAY MY ORIGINAL DESIGN**
 
