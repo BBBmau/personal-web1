@@ -5,7 +5,7 @@ fetch('tweet-card.html')
         document.getElementById('tweet-card-container').innerHTML = html;
         
         // Then initialize the tweet
-        const tweetId = '1879689102909710692';
+        const tweetId = '1867688942973174153';
         
         // Add Twitter widgets script if it's not already loaded
         if (!window.twttr) {
