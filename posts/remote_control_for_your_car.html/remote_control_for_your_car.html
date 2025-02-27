@@ -6,7 +6,10 @@
     <title>mau</title>
 
 <link href="https://fonts.cdnfonts.com/css/lt-binary-neue" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 <style>
 
 .nav-button {
@@ -185,6 +188,10 @@ bottom: 0;
 right: 0;
 }
 
+code[class*="language-"], pre[class*="language-"] {
+  font-size: 14px !important;
+}
+
 </style>
 
 </head>
@@ -279,9 +286,23 @@ right: 0;
 <div class="mainboxescontent">
   <p style="clear:right;">February 27th, 2025</a>
 
-<p style="clear:right;">Over the weekend, I attended COMMA_HACK 5, comma.ai's car hackathon. My goal going into this was to integrate remote control car commands into their existing web app called connect.</a>
-<p style="clear:right;">Currently a lot of cars have their own app that allows you to control things such as HVAC, ignition, and lights. However I've found it to be very slow and not reliable. My 2023 hyundai sonata has an app and I've just stopped using it after so many failed attempts.</a>
+<p style="clear:right;">Over the weekend, I attended <a href="https://blog.comma.ai/comma-hack-5/">COMMA_HACK 5</a>, comma.ai's first car hackathon. My goal going into this was to integrate remote control car commands into their existing web app called connect.</a>
+<p style="clear:right;">Currently a lot of cars have their own app that allows you to control things such as HVAC, ignition, and lights. However I've found it to be very slow and not reliable. My 2023 hyundai sonata has their own called BlueLink and I've just stopped using it after so many failed attempts.</a>
 
+<h2>Sending signals from web app <-> car</h1>
+<p style="clear:right;">The first step to sending signals from web app <-> car was to include a new dispatch method service within the existing athenad.py file. I added a custom remote command handler that could process control signals sent from the web interface.</p>
+
+<p style="clear:right;">Here's the key part of the implementation in athenad.py:</p>
+<pre style="background-color: #f5f5f5; padding: 10px; border: 1px solid #4cc01e; overflow-x: auto;">
+```python
+@dispatcher.add_method
+def remoteCommand(command: str, args:dict) -> str:
+  from openpilot.system.remoted.remote import remoteCommand
+  return remoteCommand(command, args)
+```
+</pre>
+
+<p style="clear:right;">This dispatcher method allows me to send any command from the web app to the car's system. From there I can execute any command I wanted to based on the service payload. The video shows a signal being sent and received with it being outputted onto the device as an Offroad Alert.</p>
 <!-- sending signals -->
 <div style="width: 560px; max-width: 100%; margin: 20px auto;">
     <iframe width="560" height="315" 
@@ -293,6 +314,14 @@ right: 0;
       style="display: block; margin: 0 auto; border: 1px solid #4cc01e;">
     </iframe>
   </div>
+  <p style="clear:right;">unexpected issues:</a>
+    <ul style="color: #6e5057; margin-left: 20px;">
+      <li>⊳ Finding the appropriate timing to send the signal took some trial and error. Initially a 2 second delay led to offroad alerts not being display as it didn't give the device enough time to read the parameters of the device.</li>
+    </ul>
+
+  <h2>script to control the car remotely</h1>
+<p style="clear:right;"> As a proof of concept, I wanted to play with the dashboard of my car to give it "raveMode". A portion of the hackathon was spent understanding the system of how car ECUs communicate with each other, as well as understanding how the device sends the appropriate messages based on the specific car plugged in.</p>
+
 
 <!-- car controls -->
   <div style="width: 560px; max-width: 100%; margin: 20px auto;">
@@ -348,7 +377,31 @@ right: 0;
 
 </div>
 
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find all pre elements with markdown content
+      const preElements = document.querySelectorAll('pre');
+      
+      preElements.forEach(pre => {
+        // Get the content of the pre tag
+        const content = pre.innerHTML;
+        
+        // Check if it contains markdown code blocks
+        if (content.includes('```')) {
+          // Process the markdown
+          const processed = marked.parse(content);
+          
+          // Replace the content
+          pre.outerHTML = processed;
+        }
+      });
+      
+      // Add syntax highlighting
+      if (window.Prism) {
+        Prism.highlightAll();
+      }
+    });
+</script>
 </body>
 
 </html>
