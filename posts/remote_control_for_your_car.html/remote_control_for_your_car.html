@@ -377,7 +377,59 @@ def flashLights(args: dict):
 
 <!-- finished project -->
 <h2>Putting it all together</h1>
-  <div style="width: 560px; max-width: 100%; margin: 20px auto;">
+
+<p style="clear:right;">Finally it was time to put the remote signalling and the car control scripts working together. This proved to be much more difficult then I had anticipated.</p>
+<p style="clear:right;">The difficult comes from providing on/off functionality, on initial implementation I ran into `address in use errors` signalling that the controls were being in use. <a href="https://github.com/BBBmau/openpilot/blob/b4d5daf752cb17859aa52d48264e7692ce59ec25/system/remoted/remote.py#L36-L79">To fix this I implemented threading as cases such as lights are in a loop and must be dismissed on the second event receieved from device (e.g {"isActive": "False"}).</a></p>
+<pre style="background-color: #f5f5f5; padding: 10px; border: 1px solid #4cc01e; overflow-x: auto;">
+```python
+# this should contain all the commands that can be run remotely
+def runCommand(command: str, args: dict):
+  def command_thread():
+    from openpilot.system.remoted.commands import command_map
+    try:
+      print(f"Running command: {command} with args: {args}")
+
+      if command in command_map:
+        # Example of a loop that checks the do_run flag
+        command_map[command](args)
+        # Add a sleep or wait mechanism to prevent busy-waiting
+      else:
+        print(f"Command {command} not found in command_map.")
+    finally:
+      # Ensure the IsRunningCommand flag is reset after command execution
+      params.put_bool("IsRunningCommand", False)
+      params.remove("Offroad_IsRunningCommand")
+      # Remove the thread from the running_threads dictionary
+      running_threads.pop(command, None)
+      save_running_threads()  # Save state after removing a command
+
+  params = Params()
+
+  # Check if the command is already running and should be canceled
+  if args['isActive'] == "False":
+    if command in running_threads:
+      print(f"Cancelling command: {command} as isActive is False")
+      # Check if the thread object is not None before accessing do_run
+      if running_threads[command] is not None:
+        running_threads[command].do_run = False
+      running_threads.pop(command, None)
+      save_running_threads()  # Save state after cancelling a command
+      return "Command cancelled"
+    else:
+      return "No running command to cancel"
+
+  # Start a new thread for the command
+  thread = threading.Thread(target=command_thread)
+  thread.do_run = True  # Custom attribute to control the thread
+  running_threads[command] = thread
+  save_running_threads()  # Save state after adding a new command
+  print("Flash Lights execution started")
+  thread.start()
+  return "runCommand end"
+```
+</pre>
+
+<div style="width: 560px; max-width: 100%; margin: 20px auto;">
     <iframe width="560" height="315" 
       src="https://www.youtube.com/embed/HK_r9UjPrGM" 
       title="YouTube video player" 
@@ -388,7 +440,9 @@ def flashLights(args: dict):
     </iframe>
   </div>
 
-<p style="clear:right;">My first iteration of this idea consisted of the following:</a>
+<p style="clear:right;">After threading we see it working beautifully! Although the car controls are still WIP the POC of remote commands is there!</a>
+
+
 <ul style="color: #6e5057; margin-left: 20px;">
   <li>⊳ Simple navigation between starting page -> assistant screen -> settings page</li>
   <li>⊳ Simple Assistant Screen functionality - display text through RecyclerView</li>
