@@ -9,6 +9,27 @@
 
 <style>
 
+.nav-button {
+    padding: 8px 15px;
+    background-image: linear-gradient(to right, #4cc01e, #75ee54);
+    color: white !important;
+    border: 1px solid #4cc01e;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-button.disabled {
+    background-image: linear-gradient(to right, #cccccc, #dddddd);
+    border: 1px solid #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.nav-button:hover:not(.disabled) {
+    opacity: 0.9;
+    text-shadow: none;
+}
+
 body{
 background-color: #fff7fb;
 font-family: 'LT Binary Neue', sans-serif;
@@ -190,8 +211,8 @@ right: 0;
  <li><a href="https://www.linkedin.com/in/mauricio-alvarezleon/">⊳ LinkedIn</a></li> 
   <li><a href="http://www.twitter.com/_mastermau_">⊳ Twitter</a></li> 
  <li><a href="http://www.github.com/BBBmau/">⊳ Github</a></li>
- <li><a href="index.html">⊳ Home</a></li>
- <li><a href="projects.html">⊳ Projects</a></li>
+ <li><a href="../../index.html">⊳ Home</a></li>
+ <li><a href="../../projects.html">⊳ Projects</a></li>
  </ul>
 
 
@@ -240,7 +261,7 @@ right: 0;
 
 <div class="mainboxes">
 
-<div class="subheader"><h3>Posts</h3></div>
+<div class="subheader"><h3>remote control for your car - comma_hack 5</h3></a></div>
 
 <div class="mainboxescontent">
 
@@ -256,16 +277,68 @@ right: 0;
 
 
 <div class="mainboxescontent">
+  <p style="clear:right;">February 27th, 2025</a>
 
+<p style="clear:right;">Over the weekend, I attended COMMA_HACK 5, comma.ai's car hackathon. My goal going into this was to integrate remote control car commands into their existing web app called connect.</a>
+<p style="clear:right;">Currently a lot of cars have their own app that allows you to control things such as HVAC, ignition, and lights. However I've found it to be very slow and not reliable. My 2023 hyundai sonata has an app and I've just stopped using it after so many failed attempts.</a>
 
+<!-- sending signals -->
+<div style="width: 560px; max-width: 100%; margin: 20px auto;">
+    <iframe width="560" height="315" 
+      src="https://www.youtube.com/embed/QgKOuasQ-S0" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen
+      style="display: block; margin: 0 auto; border: 1px solid #4cc01e;">
+    </iframe>
+  </div>
 
-<p style="clear:right;"><a href="posts/iteration_1_tour_guide/iteration_1_tour_guide.html">⊳ first iteration - your personal tour guide</a>
-<p style="clear:right;"><a href="posts/iteration_2_tour_guide/remote_control_for_your_car.html">⊳ remote control for your car - comma_hack 5</a>
+<!-- car controls -->
+  <div style="width: 560px; max-width: 100%; margin: 20px auto;">
+    <iframe width="560" height="315" 
+      src="https://www.youtube.com/embed/8rulRNCtF6g" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen
+      style="display: block; margin: 0 auto; border: 1px solid #4cc01e;">
+    </iframe>
+  </div>
+
+<!-- finished project -->
+  <div style="width: 560px; max-width: 100%; margin: 20px auto;">
+    <iframe width="560" height="315" 
+      src="https://www.youtube.com/embed/HK_r9UjPrGM" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen
+      style="display: block; margin: 0 auto; border: 1px solid #4cc01e;">
+    </iframe>
+  </div>
+
+<p style="clear:right;">My first iteration of this idea consisted of the following:</a>
+<ul style="color: #6e5057; margin-left: 20px;">
+  <li>⊳ Simple navigation between starting page -> assistant screen -> settings page</li>
+  <li>⊳ Simple Assistant Screen functionality - display text through RecyclerView</li>
+  <li>⊳ Simple webRTC setup to interact with the open.ai realtime API over voice(text output only)</li>
+</ul>
+
+<p style="clear:right;">It's been a fun time working on this project. There's still quite a bit before the final vision of mine is complete but I'm excited to see where this goes.</a>
+<p style="clear:right;">Second iteration will intoduce some useful features on top of what's already been developed with the third iteration being planned to be the final touch-ups before it's open to beta.</a>
+
+<p style="clear:right;">Hopefully people are as excited for this as I am, I've wanted something like this for quite long time!</a>
+<p style="clear:right;">Feel free to reachout if you have any questions or interest in regards to this project, until then take care and happy programming! - mau</a>
+
 
 </div>
 
 </div>
-
+<div class="mainboxes" style="display: flex; justify-content: space-between; padding: 10px;">
+  <a class="nav-button disabled">← Previous Post</a>
+  <a href="../iteration_2_features/iteration_2_features.html" class="nav-button disabled">Next Post →</a>
+</div>
 </div>
 
 
