@@ -292,7 +292,7 @@ code[class*="language-"], pre[class*="language-"] {
 <h2>Sending signals from web app <-> car</h1>
 <p style="clear:right;">The first step to sending signals from web app <-> car was to include a new dispatch method service within the existing athenad.py file. I added a custom remote command handler that could process control signals sent from the web interface.</p>
 
-<p style="clear:right;">Here's the key part of the implementation in athenad.py:</p>
+<p style="clear:right;">Here's the key part of the implementation in <a href="https://github.com/BBBmau/openpilot/blob/b4d5daf752cb17859aa52d48264e7692ce59ec25/system/athena/athenad.py#L553-L556">athenad.py</a>:</p>
 <pre style="background-color: #f5f5f5; padding: 10px; border: 1px solid #4cc01e; overflow-x: auto;">
 ```python
 @dispatcher.add_method
@@ -320,8 +320,41 @@ def remoteCommand(command: str, args:dict) -> str:
     </ul>
 
   <h2>script to control the car remotely</h1>
-<p style="clear:right;"> As a proof of concept, I wanted to play with the dashboard of my car to give it "raveMode". A portion of the hackathon was spent understanding the system of how car ECUs communicate with each other, as well as understanding how the device sends the appropriate messages based on the specific car plugged in.</p>
+<p style="clear:right;"> As a proof of concept, I wanted to play with the dashboard of my car to give it "raveMode". A portion of the hackathon was spent understanding the system of how car ECUs communicate with each other, as well as understanding how the device sends the appropriate messages based on the specific car plugged in. <a href="https://github.com/BBBmau/openpilot/blob/b4d5daf752cb17859aa52d48264e7692ce59ec25/system/remoted/commands.py#L30-L58">Below is the script I wrote that was just to play around with the Dashboard UI of my sonata.</a></p>
+<pre style="background-color: #f5f5f5; padding: 10px; border: 1px solid #4cc01e; overflow-x: auto;">
+```python
+def flashLights(args: dict):
+  print("Flash Lights")
+  lightFlip = False
+  while is_command_active('flashLights'):
+    print("Running...")
+    # Debug: Check the current state of the command
+    print(f"Command active: {is_command_active('flashLights')}")
+    # Check if the thread should stop
+    if not getattr(threading.current_thread(), "do_run", True):
+      print("Flash Lights command deactivated.")
+      break  # Exit the loop if deactivated
 
+    start_time = time.time()
+    while time.time() - start_time < 1:
+      CC.hudControl.leftLaneVisible = lightFlip
+      CC.hudControl.rightLaneVisible = lightFlip
+      CC.leftBlinker = lightFlip
+      CC.rightBlinker = lightFlip
+      CC.enabled = lightFlip
+      flash_send = messaging.new_message('carControl')
+      flash_send.valid = CS.canValid
+      flash_send.carControl = CC
+      pm.send('carControl', flash_send)
+      print(start_time)
+      lightFlip = not lightFlip
+      time.sleep(0.1)  # Add a small delay to prevent rapid looping
+
+  # Ensure any necessary cleanup here
+  print("Flash Lights command completed or canceled.")
+```
+</pre>
+<p style="clear:right;">To understand how your car sends CAN packets across different ECUs, I recommend watching Robbe's talk on <a href="https://www.youtube.com/watch?v=nNU6ipme878&t=1719s">How Do We Control The Car?</a> who is currently a Hardware Engineer at comma.</p>
 
 <!-- car controls -->
   <div style="width: 560px; max-width: 100%; margin: 20px auto;">
@@ -335,7 +368,15 @@ def remoteCommand(command: str, args:dict) -> str:
     </iframe>
   </div>
 
+  <p style="clear:right;">unexpected issues:</a>
+    <ul style="color: #6e5057; margin-left: 20px;">
+      <li style="color: #6e5057; margin-bottom: 20px;">⊳ I found that although we have access to controlling the car such as steering, gas, and brakes, I found that we weren't necessarily exposed to the appropriate BUS that allowed me to send CAN messages that turned blinkers on/off.</li>
+      <li style="color: #6e5057; margin-bottom: 20px;">⊳ This really depends on the car as certain messages may not work on all cars (The ev6 from KIA does not react the same to the messages as does my sonata.) This would involve some more investigation to provide a very generic solution for things such as HVAC.</li>
+      <li>⊳ As it stands we are unable to control things such as HVAC and blinkers. However after chatting with some engineers I realized that it is in fact possible, the approach just needed to be changed. In order to access certain ECUs one can communicate with them directly through UDS over the OBD-II port. While this solves the blocker that I had faced it still remains to be looked into since in order to have access one needs to go through the gateway of a car and it's often protected behind an encryption key.</li>
+    </ul>
+
 <!-- finished project -->
+<h2>Putting it all together</h1>
   <div style="width: 560px; max-width: 100%; margin: 20px auto;">
     <iframe width="560" height="315" 
       src="https://www.youtube.com/embed/HK_r9UjPrGM" 
