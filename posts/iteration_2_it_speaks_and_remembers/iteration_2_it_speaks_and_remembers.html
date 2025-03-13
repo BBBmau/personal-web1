@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mau</title>
+
+<link href="https://fonts.cdnfonts.com/css/lt-binary-neue" rel="stylesheet">
+
+<style>
+
+.nav-button {
+    padding: 8px 15px;
+    background-image: linear-gradient(to right, #4cc01e, #75ee54);
+    color: white !important;
+    border: 1px solid #4cc01e;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-button.disabled {
+    background-image: linear-gradient(to right, #cccccc, #dddddd);
+    border: 1px solid #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.nav-button:hover:not(.disabled) {
+    opacity: 0.9;
+    text-shadow: none;
+}
+
+body{
+background-color: #fff7fb;
+font-family: 'LT Binary Neue', sans-serif;
+}
+
+#container{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 800px;
+margin: 0 auto;
+border: 1px solid #75ee54;
+padding: 3px;
+}
+
+#box{
+width: 800px;
+background-color: #fff7fb;
+color: #000;
+border: 1px solid #4cc01e;
+}
+
+#header{
+margin-bottom: 10px;
+padding: 10px;
+border-bottom: 1px solid #4cc01e;
+background-image: linear-gradient(to right, #4cc01e, #75ee54);
+color: #fff;
+letter-spacing: 3px;
+}
+
+#header h1{
+margin: 0px;
+}
+
+#side{
+float: left;
+width: 145px;
+padding: 0px 0px 5px 10px;
+overflow: hidden;
+}
+
+.sidebox{
+border: 1px solid #4cc01e;
+margin: 0px 0px 5px 0px;
+}
+
+.sidecontent{
+padding: 0px 0px 0px 5px;
+color: #6e5057;
+font-size: 17px;
+letter-spacing: 1px;
+}
+
+.sidecontent ul, li{
+margin: 0px;
+list-style-type: none;
+padding-left: 0px;
+}
+
+a{
+text-decoration: none;
+color: #4cc01e;
+}
+
+a:visited{
+color: #4cc01e;
+}
+
+a:hover{
+text-shadow: 0px 0px 2px #78beff;
+}
+
+#scrollcontainer{
+padding: 5px;
+}
+
+#scrolly{
+overflow: scroll;
+overflow-x: hidden;
+width: 110px;
+height:110px;
+border: 1px solid #4cc01e;
+margin: 0 auto;
+text-align: center;
+}
+
+#scrollyheader{
+margin: 0px;
+border-bottom: 1px dotted #4cc01e;
+}
+
+#main{
+float: right;
+width: 624px;
+overflow: hidden;
+padding: 0px 10px 5px 0px;
+}
+
+.mainboxes{
+border: 1px solid #4cc01e;
+padding: 0px;
+margin: 0px 0px 5px 0px;
+}
+
+.subheader{
+background-image: linear-gradient(to right, #4cc01e, #75ee54);
+border-bottom: 1px solid #4cc01e;
+padding: 3px;
+color: #fff;
+letter-spacing: 3px;
+}
+
+.subheader h3{
+margin: 0px;
+}
+
+.mainboxescontent{
+padding: 0px 15px 0px 15px;
+color: #6e5057;
+font-size: 17px;
+}
+
+#footer{
+clear: both;
+padding: 3px;
+border-top: 1px solid #4cc01e;
+background-image: linear-gradient(to right, #4cc01e, #75ee54);
+color: #fff;
+font-size: 14px;
+}
+
+#footer p{
+margin: 0px;
+}
+
+::-webkit-scrollbar{
+width: 8px; 
+}
+    
+::-webkit-scrollbar-track{
+background-color: #fff7fb;
+}
+
+::-webkit-scrollbar-thumb{
+background-color: #4cc01e;  
+}
+
+#credit{
+font-size: 12px;
+position: fixed;
+bottom: 0;
+right: 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="box">
+
+<div id="header"><h1>Mauricio Alvarez Leon - github/BBBmau</h1></div>
+
+<div id="side">
+
+<div class="sidebox">
+
+<div class="subheader"><h3>My Stuff</h3></div>
+
+<div class="sidecontent">
+
+<!-- LINK BOX 1 -->
+
+<ul>
+ <li><a href="https://www.linkedin.com/in/mauricio-alvarezleon/">⊳ LinkedIn</a></li> 
+  <li><a href="http://www.twitter.com/_mastermau_">⊳ Twitter</a></li> 
+ <li><a href="http://www.github.com/BBBmau/">⊳ Github</a></li>
+ <li><a href="../../index.html">⊳ Home</a></li>
+ <li><a href="../../projects.html">⊳ Projects</a></li>
+ </ul>
+
+
+<!-- END LINK BOX 1 -->
+
+</div>
+</div>
+
+<div class="sidebox">
+
+<div class="sidecontent">
+
+
+</div>
+</div>
+
+<div class="sidebox">
+
+<div class="subheader"><h3>Other</h3></div>
+
+<div class="sidecontent" id="scrollcontainer">
+
+<div id="scrolly">
+
+<!-- SCROLLBOX CONTENT -->
+<p id="scrollyheader">web 1.0</p>
+<div id="scrollycontent" style="padding:5px;">
+
+<img src="https://web.archive.org/web/20050327082756/http://www.geocities.com/kof_mexico/Botones/Yashiro.gif" style="width:100%;"><img>
+<img src="https://web.archive.org/web/20090726010440im_/http://www.geocities.com/atfaq1/EvilExplorer.gif" style="width:100%;"><img>
+<img src="https://web.archive.org/web/20090902084251/http://www.geocities.com/safetypins018/24hours.gif" style="width:100%;"><img>
+
+<!-- END SCROLLBOX CONTENT -->
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="main">
+
+<div class="mainboxes">
+
+<div class="subheader"><h3>second iteration - it talks and remembers</h3></a></div>
+
+<div class="mainboxescontent">
+
+
+
+<!-- END CONTENT -->
+
+</div>
+
+</div>
+
+<div class="mainboxes">
+
+
+<div class="mainboxescontent">
+  <p style="clear:right;">March 12th, 2025</a>
+
+<p style="clear:right;">I've finally got a fully functioning app! Despite it being very barebones this is a great start with having a personal tour guide. Below is me and my aunt having a conversation with the assistant (in spanish!).</a>
+<hr>
+
+<iframe width="560" height="315" 
+  src="https://youtube.com/embed/Uz9YlD2Bw84?feature=share" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+  style="display: block; margin: 0 auto; border: 1px solid #4cc01e;">
+</iframe>
+
+<p style="clear:right;">The fix itself was actually quite simple. I had written up the webRTC implementation that was able to output the text but was puzzled that the audio wasn't working. The moment I moved out of the free tier however it began to work. This is my fault for not reading the pricing page fully!</a>
+
+<p style="clear:right;">Prior to this though the main focus was adding support for accessing previous conversations made to the assistance. This involved using the Room package which is an abstraction of SQLite meant for android implementation. It took a bit of playing around but I was able to get it working! The goal is to have conversations be stored locally and uploaded to the cloud upon connecting to WIFI.</a>
+<p style="clear:right;">I also looked into login/signup functionality. After some investigation I found that using Auth0 was the best option as in the future it'll allow me to use it's credential features to store the data to it's appropriate user.</a>
+
+<p style="clear:right;">Below is a video of the app from sign-up to accessing your previous conversations. There's been some other UI additions such as `Desired Destination` and `Roadtrip Mode` where it will ping you when it finds an interesting stop as you're driving. This will be the third iteration.</p>
+<iframe width="560" height="315" 
+  src="https://youtube.com/embed/8ls11w08g_Y?feature=share" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+  style="display: block; margin: 0 auto; border: 1px solid #4cc01e;">
+</iframe>
+
+<p style="clear:right;">And just like that I have an app that I can actually use! I was able to use it for the first time on my trip back from Mexico City. It guided me to The Living Room, a beautiful coffee shop in Downtown La Jolla. A coffee shop I never knew of until the guide. The coffee was great though I have a feeling it had a bit of extra flavor due to the app working (:</p>
+
+<img src="./image.png" style="width: 300px; height: auto; display: block; margin: 10px auto; border: 1px solid #4cc01e;">
+
+<p style="clear:right;">Next iteration will be a big one. I already got a ton of ideas from just that one usage. If anyone is interested I've begun internal testing for those interested. Just reach out if you'd like to try it!</p>
+
+<p style="clear:right;">This has been a ton of fun, on top of this I've taken up learning kernel development. Still early but it's also something I've wanted to look into for quite some time. Perhaps the next post will talk about just that! - mau</p>
+
+</div>
+
+</div>
+<div class="mainboxes" style="display: flex; justify-content: space-between; padding: 10px;">
+  <a class="nav-button disabled">← Previous Post</a>
+  <a href="../remote_control_for_your_car/remote_control_for_your_car.html" class="nav-button enabled">Next Post →</a>
+</div>
+</div>
+
+<div id="footer"><p>Thanks to Repth for the template! (As well as <a href="http://www.youtube.com/f4micom" style="color: #ffffff;">⊳fa4mi</a>, since I got first exposed to this template by her in the first place. Great videos that you should checkout!)</p></div>
+
+</div>
+
+</div>
+
+
+</body>
+
+</html>
